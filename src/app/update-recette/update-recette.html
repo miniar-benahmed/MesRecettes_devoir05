@@ -1,0 +1,50 @@
+<h2>
+    Modifier une recette</h2>
+
+<form (ngSubmit)="updateRecette()">
+
+    <p>
+        <label>Identifiant :</label>
+        <input type="number" [(ngModel)]="currentRecette.idRecette" name="idRecette" readonly>
+    </p>
+
+    <p>
+        <label>Nom de la recette :</label>
+        <input type="text" [(ngModel)]="currentRecette.nomRecette" name="nomRecette" required>
+    </p>
+
+    <p>
+        <label>Temps de préparation :</label>
+        <input type="number" [(ngModel)]="currentRecette.tempsPreparation" name="tempsPreparation" min="1" required>
+    </p>
+
+    <p>
+        <label>Difficulté :</label>
+        <select [(ngModel)]="currentRecette.difficulte" name="difficulte" required>
+      <option value="Facile">Facile</option>
+      <option value="Moyenne">Moyenne</option>
+      <option value="Difficile">Difficile</option>
+    </select>
+    </p>
+
+    <p>
+        <label>Pays d'origine :</label>
+
+        <select [(ngModel)]="currentRecette.paysOrigine" name="paysOrigine" required>
+
+    <option value="">Choisir un pays</option>
+    <option value="Tunisie">Tunisie</option>
+    <option value="Italie">Italie</option>
+    <option value="France">France</option>
+    <option value="Maroc">Maroc</option>
+    <option value="Turquie">Turquie</option>
+  </select>
+    </p>
+
+    <p>Date d'ajout : {{ currentRecette.dateAjout | date:'dd/MM/yyyy' }}</p>
+
+    <button type="submit">Enregistrer les modifications</button>
+
+</form>
+
+<p><a routerLink="/recettes">Retour à la liste</a></p>
