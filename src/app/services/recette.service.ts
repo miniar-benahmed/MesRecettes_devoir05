@@ -78,6 +78,11 @@ export class RecetteService {
     rechercherParPaysOrigine(idPays: number): Recette[] {
     return this.recettes.filter(r => r.paysOrigine.idpaysOrigine == idPays);
   }
+    rechercherParNom(nom: string): Recette[] {
+    return this.recettes.filter(r =>
+      r.nomRecette.toLowerCase().includes(nom.toLowerCase())
+    );
+  }
 
   updateRecette(recette: Recette): void {
     const index = this.recettes.findIndex(
