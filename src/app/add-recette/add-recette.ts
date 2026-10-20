@@ -1,52 +1,49 @@
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+
 import { Recette } from '../models/recette.model';
 import { RecetteService } from '../services/recette.service';
+import { paysOrigine } from '../models/paysOrigine.model';
 
 @Component({
+  imports: [FormsModule],
   selector: 'app-add-recette',
   standalone: true,
-  imports: [FormsModule, RouterLink],
-  templateUrl: './add-recette.html'
+  templateUrl: './add-recette.html',
 })
-export class AddRecetteComponent {
+export class AddRecetteComponent implements OnInit {
 
+  recettes!: Recette[];
   newRecette = new Recette();
   message?: string;
+
+  paysOrigine!: paysOrigine[];
+  newIdpaysOrigine!: number;
+  newPaysOrigine!: paysOrigine;
 
   constructor(
     private recetteService: RecetteService,
     private router: Router
   ) {}
 
+  ngOnInit(): void {
+    this.paysOrigine = this.recetteService.listepaysOrigine();
+  }
+
   addRecette(): void {
-    if (
-      !this.newRecette.idRecette ||
-      !this.newRecette.nomRecette?.trim() ||
-      !this.newRecette.tempsPreparation ||
-      !this.newRecette.difficulte ||
-      !this.newRecette.paysOrigine
-    ) {
-      this.message = 'Veuillez remplir tous les champs.';
-      return;
-    }
+    this.newPaysOrigine =
+      this.recetteService.consulterpaysOrigine(
+        this.newIdpaysOrigine
+      );
 
-    const recetteExistante = this.recetteService
-      .listeRecettes()
-      .some(r => r.idRecette === Number(this.newRecette.idRecette));
-
-    if (recetteExistante) {
-      this.message = 'Cet identifiant existe déjà.';
-      return;
-    }
-
-    this.newRecette.idRecette = Number(this.newRecette.idRecette);
-    this.newRecette.tempsPreparation = Number(this.newRecette.tempsPreparation);
-    this.newRecette.dateAjout = new Date();
+    this.newRecette.paysOrigine = this.newPaysOrigine;
 
     this.recetteService.ajouterRecette(this.newRecette);
-    this.router.navigate(['/recettes']);
+
+    this.message = 'Recette ajoutée avec succès';
+
+    this.router.navigate(['recettes']);
   }
 }

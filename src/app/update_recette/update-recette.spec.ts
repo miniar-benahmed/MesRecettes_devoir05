@@ -1,16 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UpdateRecette } from './update-recette';
 
-describe('UpdateRecette', () => {
-  let component: UpdateRecette;
-  let fixture: ComponentFixture<UpdateRecette>;
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { UpdateRecetteComponent } from './update-recette';
+
+describe('UpdateRecetteComponent', () => {
+  let component: UpdateRecetteComponent;
+  let fixture: ComponentFixture<UpdateRecetteComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UpdateRecette],
+      imports: [UpdateRecetteComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UpdateRecette);
+    fixture = TestBed.createComponent(UpdateRecetteComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -19,3 +20,4 @@ describe('UpdateRecette', () => {
     expect(component).toBeTruthy();
   });
 });
+

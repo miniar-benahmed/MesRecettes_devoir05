@@ -1,6 +1,6 @@
-
 import { Injectable } from '@angular/core';
 import { Recette } from '../models/recette.model';
+import { paysOrigine } from '../models/paysOrigine.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +8,16 @@ import { Recette } from '../models/recette.model';
 export class RecetteService {
 
   recettes: Recette[];
-
   recette!: Recette;
+  paysOrigine: paysOrigine[];
 
   constructor() {
+    this.paysOrigine = [
+      { idpaysOrigine: 1, nompaysOrigine: 'tunisie' },
+      { idpaysOrigine: 2, nompaysOrigine: 'italie' },
+      { idpaysOrigine: 3, nompaysOrigine: 'france' }
+    ];
+
     this.recettes = [
       {
         idRecette: 1,
@@ -19,7 +25,7 @@ export class RecetteService {
         tempsPreparation: 25,
         difficulte: 'Facile',
         dateAjout: new Date('2026-10-01'),
-        paysOrigine: 'Tunisie'
+        paysOrigine: this.paysOrigine[0]
       },
       {
         idRecette: 2,
@@ -27,7 +33,7 @@ export class RecetteService {
         tempsPreparation: 15,
         difficulte: 'Facile',
         dateAjout: new Date('2026-10-02'),
-        paysOrigine: 'Tunisie'
+        paysOrigine: this.paysOrigine[1]
       },
       {
         idRecette: 3,
@@ -35,7 +41,7 @@ export class RecetteService {
         tempsPreparation: 60,
         difficulte: 'Moyenne',
         dateAjout: new Date('2026-10-03'),
-        paysOrigine: 'Tunisie'
+        paysOrigine: this.paysOrigine[0]
       }
     ];
   }
@@ -50,20 +56,34 @@ export class RecetteService {
 
   supprimerRecette(recette: Recette): void {
     const index = this.recettes.indexOf(recette);
+
     if (index > -1) {
       this.recettes.splice(index, 1);
     }
   }
 
   consulterRecette(id: number): Recette {
-    this.recette = this.recettes.find(r => r.idRecette == id)!;
-    return this.recette;
+    return this.recettes.find(r => r.idRecette == id)!;
+  }
+
+  listepaysOrigine(): paysOrigine[] {
+    return this.paysOrigine;
+  }
+
+  consulterpaysOrigine(id: number): paysOrigine {
+    return this.paysOrigine.find(
+      p => p.idpaysOrigine == id
+    )!;
+  }
+    rechercherParPaysOrigine(idPays: number): Recette[] {
+    return this.recettes.filter(r => r.paysOrigine.idpaysOrigine == idPays);
   }
 
   updateRecette(recette: Recette): void {
     const index = this.recettes.findIndex(
       r => r.idRecette === recette.idRecette
     );
+
     if (index > -1) {
       this.recettes[index] = recette;
     }

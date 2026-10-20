@@ -1,51 +1,51 @@
-<h2>
-    Ajouter une recette</h2>
+<div class="container">
+    <h2>Ajouter une recette :</h2>
+    <form>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label>ID Recette</label>
+            <input type="number" [(ngModel)]="newRecette.idRecette" name="idRecette" class="form-control">
+        </div>
 
-<form (ngSubmit)="addRecette()">
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Nom de la recette</label>
+            <input type="text" [(ngModel)]="newRecette.nomRecette" name="nomRecette" class="form-control">
+        </div>
 
-    <p>
-        <label>Identifiant :</label>
-        <input type="number" [(ngModel)]="newRecette.idRecette" name="idRecette" required>
-    </p>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Temps de préparation (minutes)</label>
+            <input type="number" [(ngModel)]="newRecette.tempsPreparation" name="tempsPreparation" class="form-control">
+        </div>
 
-    <p>
-        <label>Nom de la recette :</label>
-        <input type="text" [(ngModel)]="newRecette.nomRecette" name="nomRecette" required>
-    </p>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Difficulté</label>
+            <select [(ngModel)]="newRecette.difficulte" name="difficulte" class="form-control">
+                <option value="Facile">Facile</option>
+                <option value="Moyenne">Moyenne</option>
+                <option value="Difficile">Difficile</option>
+            </select>
+        </div>
 
-    <p>
-        <label>Temps de préparation (minutes) :</label>
-        <input type="number" [(ngModel)]="newRecette.tempsPreparation" name="tempsPreparation" min="1" required>
-    </p>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Date d'ajout</label>
+            <input type="date" [(ngModel)]="newRecette.dateAjout" name="dateAjout" class="form-control">
+        </div>
 
-    <p>
-        <label>Difficulté :</label>
-        <select [(ngModel)]="newRecette.difficulte" name="difficulte" required>
-      <option value="Facile">Facile</option>
-      <option value="Moyenne">Moyenne</option>
-      <option value="Difficile">Difficile</option>
-    </select>
-    </p>
+        <div class="col-sm-4 col-md-4 col-lg-4 mt-2">
+            <label>Pays d'origine</label>
+            <select class="form-control" name="idpaysOrigine" id="idpaysOrigine" [(ngModel)]="newIdpaysOrigine">
+                @for (p of paysOrigine; track p.idpaysOrigine) {
+                    <option [ngValue]="p.idpaysOrigine">
+                        {{ p.nompaysOrigine }}
+                    </option>
+                }
+            </select>
+        </div>
 
-    <p>
-        <label>Pays d'origine :</label>
-
-        <select [(ngModel)]="newRecette.paysOrigine" name="paysOrigine" required>
-
-    <option value="">Choisir un pays</option>
-    <option value="Tunisie">Tunisie</option>
-    <option value="Italie">Italie</option>
-    <option value="France">France</option>
-    <option value="Maroc">Maroc</option>
-    <option value="Turquie">Turquie</option>
-  </select>
-    </p>
-
-
-    <button type="submit">Ajouter</button>
-
-    <p>{{ message }}</p>
-
-</form>
-
-<p><a routerLink="/recettes">Retour à la liste</a></p>
+        <div class="mt-2">
+            <button type="button" (click)="addRecette()" class="btn btn-success"> Ajouter </button>
+        </div>
+        <div class="mt-2">
+            <h3>{{ message }}</h3>
+        </div>
+    </form>
+</div>
